@@ -2,21 +2,22 @@ import Layout from '../Layout/Layout';
 import { Stack, TextField, Button } from '@mui/material';
 import { useState } from 'react';
 import axios from 'axios';
+// import { API_HOST } from '../constantes';
 
 
 function IngresoAtlas() {
   const [fecha, setFecha] = useState('');
-  const [monto, setMonto] = useState(0);
+  const [monto, setMonto] = useState('');
   const [descripcion, setDescripcion] = useState('');
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = (e: { preventDefault: () => void; }) => {
+    e.preventDefault();
     const datos = {
       fecha,
       monto,
       descripcion
     };
-    axios.post('https://back-comuna.vercel.app/ingresos', datos)
+    axios.post("/ingresos", datos)
       .then(response => {
         console.log(response.data);
       })
@@ -36,7 +37,7 @@ function IngresoAtlas() {
       <Button type='submit'>Enviar</Button>
       </Stack>
     </form>
-    <Layout sx={{ height: "100%" }} />
+    <Layout />
     </>
   );
 }

@@ -3,14 +3,13 @@ const app = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+require('dotenv').config()
 
 app.use(cors());
 app.use(bodyParser.json());
 
 // Configuración de la base de datos
-mongoose.connect('mongodb+srv://roberto:XA5efum6MiRbo7Ru@comuna.bna6zdj.mongodb.net/', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
+mongoose.connect(process.env.DATABASE_URL, {
 });
 
 // Modelo de datos para ingresos
@@ -49,8 +48,10 @@ app.post('/gastos', async (req, res) => {
   }
 });
 
+app.use(express.static('public'));
+
 // Iniciar el servidor
-const port = 5174;
+const port = process.env.PORT;
 app.listen(port, () => {
   console.log(`Servidor iniciado en el puerto ${port}`);
 });
